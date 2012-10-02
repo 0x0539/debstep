@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'debstep'
-  s.version = '0.0.0'
+  s.version = '0.0.1'
   s.date = '2012-01-10'
   s.email = 'sebastian@foodocs.com'
   s.homepage = 'http://github.com/0x0539/debstep'
