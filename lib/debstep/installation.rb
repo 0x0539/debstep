@@ -16,7 +16,9 @@ module Debstep
 
     def template(path, opts={})
       File.open(target(path, opts), 'w') do |file| 
-        file.write(ERB.new(File.open(path, 'r').read).result) 
+        erb = File.open(path, 'r').read
+        out = ERB.new(erb).result(opts[:binding] || TOPLEVEL_BINDING)
+        file.write(out) 
       end
     end
 
