@@ -65,6 +65,21 @@ module Debstep
       !value.nil? && !value.strip.empty?
     end
 
+    def write_script(script)
+      File.open("#{@workspace}/DEBIAN/#{script}", 'w') do |f|
+        f.write(script_contents(script))
+        f.chmod(0775)
+      end
+    end
+
+    def script_given?(script)
+      !!script_contents(script)
+    end
+
+    def script_contents(script)
+      instance_variable_get(:"@#{script}")
+    end
+
     def save(path)
       @@required_control_fields.each do |field|
         raise Exception.new("#{field} is required") unless control_field_specified?(field)
@@ -86,21 +101,9 @@ module Debstep
         end
       end
 
-      File.open("#{@workspace}/DEBIAN/preinst", 'w') do |file|
-        file.write(@preinst)
-      end if @preinst
-
-      File.open("#{@workspace}/DEBIAN/postinst", 'w') do |file|
-        file.write(@postinst)
-      end if @postinst
-
-      File.open("#{@workspace}/DEBIAN/prerm", 'w') do |file|
-        file.write(@prerm)
-      end if @prerm
-
-      File.open("#{@workspace}/DEBIAN/postrm", 'w') do |file|
-        file.write(@postrm)
-      end if @postrm
+      %w( preinst postinst prerm postrm ).each do |script|
+        write_script(script) if script_given?(script)
+      end
 
       `dpkg-deb --build #{@workspace}`
     end

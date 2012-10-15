@@ -16,5 +16,7 @@ module Debstep
     def template(path)
       @script += ERB.new(File.open(path, 'r').read.strip).result + "\n"
     end
+
+    alias :run :file
   end
 end
