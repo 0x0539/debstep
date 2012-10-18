@@ -3,8 +3,8 @@ require 'fileutils'
 module Debstep
   class Package
 
-    @@required_control_fields = %w( Package Version Maintainer Description Architecture Section Priority )
-    @@optional_control_fields = %w( Depends )
+    @@required_control_fields = %w( Package Version Maintainer Description Architecture )
+    @@optional_control_fields = %w( Depends Section Priority )
 
     @@control_fields = @@required_control_fields + @@optional_control_fields
     @@control_fields.each do |a|
