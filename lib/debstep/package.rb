@@ -24,7 +24,7 @@ module Debstep
 
       instance_eval(&block)
 
-      save("#{@workspace}.deb")
+      save
     end
 
     def install(path, &block)
@@ -80,7 +80,7 @@ module Debstep
       instance_variable_get(:"@#{script}")
     end
 
-    def save(path)
+    def save
       @@required_control_fields.each do |field|
         raise Exception.new("#{field} is required") unless control_field_specified?(field)
       end
@@ -105,7 +105,7 @@ module Debstep
         write_script(script) if script_given?(script)
       end
 
-      `dpkg-deb --build #{@workspace}`
+      `dpkg-deb --build #{@workspace} .`
     end
   end
 end
