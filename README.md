@@ -47,8 +47,9 @@ Debstep::Package.new 'my-essentials', :workspace => './build' do
 end
 ```
 
-Running the script will generate a .deb file, which you can install directly with ```dpkg -i <debfile>.deb``` (not recommended) or add to a Debian repository using ```reprepro``` (recommended). You do not get automatic dependency resolution unless you use the Debian repository approach.
+Running the script will generate a .deb file, which you can install directly with ```dpkg -i <debfile>.deb``` (not recommended) or add to a Debian repository using ```reprepro``` (recommended). You do not get automatic dependency resolution unless you use the Debian repository approach and some kind of dpkg front-end like aptitude.
 
-In my environments, I typically use my CI server as my package server and use apt-get to download packages from it. Once you are confident that your Debian repository is configured correctly, you can add an entry to /etc/apt/sources.list or /etc/apt/sources.list.d and then ```sudo apt-get update && sudo apt-get install <your-package>```.
+I use my CI server to host a Debian repository. Whenever a commit is made, the CI server builds new packages using debstep and installs them locally using reprepro. Clients use apt-get to download packages from the server, assuming they have configured /etc/apt/sources.list (or sources.list.d) correctly.
 
+Together with [awsome](https://github.com/0x0539/awsome.git) and [Jenkins](http://jenkins-ci.org/), you can have automated package building and deployments up and running in AWS in no time.
 
