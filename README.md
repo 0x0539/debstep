@@ -1,7 +1,7 @@
 debstep
 =======
 
-Ruby gem and DSL ([API?]{http://www.oreillynet.com/onlamp/blog/2007/05/the_is_it_a_dsl_or_an_api_ten.html}) to assist with the scripted creation of Debian packages. The tool makes it easy to use Debian artifacts for your own software in automated systems. Here is an example build script that will create a Debian package called 'my-essentials':
+Ruby gem and DSL ([API?](http://www.oreillynet.com/onlamp/blog/2007/05/the_is_it_a_dsl_or_an_api_ten.html)) to assist with the scripted creation of Debian packages. The tool makes it easy to use Debian artifacts for your own software in automated systems. Here is an example build script that will create a Debian package called 'my-essentials':
 
 ```
 require 'debstep'
