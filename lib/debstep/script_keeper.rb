@@ -6,15 +6,23 @@ module Debstep
 
     def initialize(init="#!/usr/bin/env bash", &block)
       @script = init + "\n"
-      instance_eval(&block)
+      instance_eval(&block) if block_given?
     end
 
     def file(path)
-      @script += File.open(path, 'r').read.strip + "\n"
+      append(File.open(path, 'r').read.strip)
+    end
+
+    def raw(value)
+      append(value)
     end
 
     def template(path)
-      @script += ERB.new(File.open(path, 'r').read.strip).result + "\n"
+      append(ERB.new(File.open(path, 'r').read.strip).result)
+    end
+
+    def append(value)
+      @script += value + "\n"
     end
 
     alias :run :file
