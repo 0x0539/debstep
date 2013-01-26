@@ -4,7 +4,7 @@ module Debstep
   class Package
 
     @@required_control_fields = %w( Package Version Maintainer Description Architecture )
-    @@optional_control_fields = %w( Depends Section Priority )
+    @@optional_control_fields = %w( Depends Section Priority Pre_Depends )
 
     @@control_fields = @@required_control_fields + @@optional_control_fields
     @@control_fields.each do |a|
@@ -97,7 +97,7 @@ module Debstep
         @@control_fields.select do |field|
           control_field_specified?(field)
         end.each do |field|
-          file.write("#{field}: #{control_field_value(field)}\n")
+          file.write("#{field.gsub('_', '-')}: #{control_field_value(field)}\n")
         end
       end
 
